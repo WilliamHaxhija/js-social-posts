@@ -84,11 +84,13 @@ likesButton.forEach((button, index) => {
     });
 });
 
-
 //FUNCTIONS
 
 function createDOMElement(postsObject) {
     let { id, content, media, author, likes, created } = postsObject;
+    const dateToConvert = created.split('-');
+    const [year, month, day] = dateToConvert;
+    const dateConverted = `${day}-${month}-${year}`;
     const singlePost = `
 <div class="post">
 <div class="post__header">
@@ -98,7 +100,7 @@ function createDOMElement(postsObject) {
         </div>
         <div class="post-meta__data">
             <div class="post-meta__author">${author.name}</div>
-            <div class="post-meta__time">${created}</div>
+            <div class="post-meta__time">${dateConverted}</div>
         </div>                    
     </div>
 </div>

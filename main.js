@@ -87,16 +87,31 @@ likesButton.forEach((button, index) => {
 //FUNCTIONS
 
 function createDOMElement(postsObject) {
+
     let { id, content, media, author, likes, created } = postsObject;
+
+    let {name} = author;
+    const namesToDivide = name.split(' ');
+     const [firstName, surname] = namesToDivide;
+     const nameInits = `${firstName[0]}${surname[0]}`
+
     const dateToConvert = created.split('-');
     const [year, month, day] = dateToConvert;
     const dateConverted = `${day}-${month}-${year}`;
+
+    let profileImgae;
+    if (author.image) {
+        profileImgae = `<img class="profile-pic" src="${author.image}" alt="${author.name}">`;
+    } else {
+        profileImgae = `<span class="profile-pic-default">${nameInits}</span>`
+    }
+
     const singlePost = `
 <div class="post">
 <div class="post__header">
     <div class="post-meta">                    
         <div class="post-meta__icon">
-            <img class="profile-pic" src="${author.image}" alt="${author.name}">                    
+            ${profileImgae}                   
         </div>
         <div class="post-meta__data">
             <div class="post-meta__author">${author.name}</div>
@@ -123,6 +138,6 @@ function createDOMElement(postsObject) {
 </div>            
 </div>
 `;
+
 return singlePost;
 };
-

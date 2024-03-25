@@ -63,6 +63,30 @@ posts.forEach((post) => {
     postList.innerHTML += singlePost;
 });
 
+const likesButton = document.querySelectorAll('.js-like-button');
+const likesCounter = document.querySelectorAll('.js-likes-counter');
+
+likesButton.forEach((button, index) => {
+    const relatedCounter = likesCounter[index];
+    let likes = relatedCounter.innerHTML;
+    let likesIncrease = false;
+    button.addEventListener('click', function () {
+        if (!likesIncrease) {
+            button.classList.add('like-button--liked');
+            likes++;
+            likesIncrease = true;
+        } else if (likesIncrease) {
+            button.classList.remove('like-button--liked');
+            likes--;
+            likesIncrease = false;
+        }
+        relatedCounter.innerHTML = likes;
+    });
+});
+
+
+//FUNCTIONS
+
 function createDOMElement(postsObject) {
     let { id, content, media, author, likes, created } = postsObject;
     const singlePost = `
@@ -85,7 +109,7 @@ function createDOMElement(postsObject) {
 <div class="post__footer">
     <div class="likes js-likes">
         <div class="likes__cta">
-            <a class="like-button  js-like-button" href="#" data-postid="1">
+            <a class="like-button  js-like-button" data-postid="1">
                 <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                 <span class="like-button__label">Mi Piace</span>
             </a>
